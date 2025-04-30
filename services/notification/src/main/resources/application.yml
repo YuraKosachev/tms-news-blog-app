@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: notification-service
+  config:
+    import: optional:configserver:${CONFIGURATION_ENDPOINT_HOST}:${CONFIGURATION_ENDPOINT_PORT}

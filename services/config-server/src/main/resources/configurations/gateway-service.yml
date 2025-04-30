@@ -1,0 +1,79 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9098/realms/news-microservices"
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+      routes:
+        - id: data-provider-service
+          uri: lb:http://DATA-PROVIDER
+          predicates:
+            - Path=/api/v1/dataprovider/**
+
+        - id: data-provider-service-swagger
+          uri: lb:http://DATA-PROVIDER
+          predicates:
+            - Path=/aggregate/data-provider-service/v3/api-docs
+          filters:
+            - SetPath=/api-docs
+
+        - id: news-service
+          uri: lb:http://NEWS-SERVICE
+          predicates:
+            - Path=/api/v1/news/**
+
+        - id: news-service-swagger
+          uri: lb:http://NEWS-SERVICE
+          predicates:
+            - Path=/aggregate/news-service/v3/api-docs
+          filters:
+            - SetPath=/api-docs
+
+        - id: notification-service
+          uri: lb:http://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/api/v1/notification/**
+
+        - id: notification-service-swagger
+          uri: lb:http://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/aggregate/notification-service/v3/api-docs
+          filters:
+            - SetPath=/api-docs
+      discovery:
+        locator:
+          enabled: true
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    urls:
+      - name: News Service
+        url: /aggregate/news-service/v3/api-docs
+
+      - name: Data Provider Service
+        url: /aggregate/data-provider-service/v3/api-docs
+
+      - name: Notification Service
+        url: /aggregate/notification-service/v3/api-docs
+  api-docs:
+    enabled: true
+    path: '/api-docs'
+
+server:
+  port: 8222

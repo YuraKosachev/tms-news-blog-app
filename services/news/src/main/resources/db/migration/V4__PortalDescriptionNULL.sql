@@ -1,0 +1,2 @@
+ALTER TABLE portals
+    ALTER COLUMN description DROP NOT NULL;

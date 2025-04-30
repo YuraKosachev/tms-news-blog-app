@@ -1,0 +1,2 @@
+ALTER TABLE articles
+    ADD sent_at TIMESTAMP WITHOUT TIME ZONE;

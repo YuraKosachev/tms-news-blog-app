@@ -1,0 +1,44 @@
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: ${KAFKA_PRODUCER_BOOTSTRAP_SERVERS}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: newsMessage:com.tms.dataprovider.core.models.kafka.NewsMessage,notificationMessage:com.tms.dataprovider.core.models.kafka.NotificationMessage
+  datasource:
+    url: ${DATA_PROVIDER_DATASOURCE_URL}
+    username: ${DATA_PROVIDER_DATASOURCE_USERNAME}
+    password: ${DATA_PROVIDER_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
+    enabled: true
+    baseline-description: "init"
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+
+server:
+  port: ${DATA_PROVIDER_SERVER_PORT}
+
+task:
+  publisher:
+    cron: "*/10 * * * * *"
+  cnn:
+    cron: "*/30 * * * * *"
+    url: https://edition.cnn.com
+    world:
+      url: ${task.cnn.url}/world
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /
