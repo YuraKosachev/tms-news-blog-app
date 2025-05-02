@@ -3,6 +3,7 @@ package com.tms.gateway.controllers;
 import com.tms.gateway.core.clients.DataProviderClient;
 import com.tms.gateway.core.constants.ApiConstants;
 import com.tms.gateway.core.constants.DateTimeConstants;
+import com.tms.gateway.core.constants.SecurityConstants;
 import com.tms.gateway.core.enums.ProcessingStatus;
 import com.tms.gateway.core.models.data_provider.TaskDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,6 +26,7 @@ import java.util.List;
 @ResponseBody
 @AllArgsConstructor
 @Tag(name="Task")
+@SecurityRequirement(name= SecurityConstants.OAUTH2_NAME)
 public class TaskController {
 
     private final DataProviderClient dataProviderClient;

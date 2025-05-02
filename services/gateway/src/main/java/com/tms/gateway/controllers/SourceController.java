@@ -2,6 +2,7 @@ package com.tms.gateway.controllers;
 
 import com.tms.gateway.core.clients.DataProviderClient;
 import com.tms.gateway.core.constants.ApiConstants;
+import com.tms.gateway.core.constants.SecurityConstants;
 import com.tms.gateway.core.models.data_provider.SourceDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @RequestMapping(ApiConstants.API_PREFIX_DATA_PROVIDER_GATEWAY)
 @Tag(name="Sources")
 @AllArgsConstructor
+@SecurityRequirement(name= SecurityConstants.OAUTH2_NAME)
 public class SourceController {
 
     private final DataProviderClient dataProviderClient;
@@ -37,7 +39,6 @@ public class SourceController {
     @Operation(description = "Task endpoint to get all sources by task id", summary = "This is a summary for account post endpoint")
     @ApiResponse(description = "Success", responseCode = "200",
             content = { @Content(mediaType = "application/json", schema = @Schema(implementation = SourceDto[].class))})
-    @SecurityRequirement(name="keycloak_security_auth")
     public ResponseEntity<List<SourceDto>> listSourcesByTaskId(@RequestParam("taskId") UUID taskId) {
         return dataProviderClient.listSourcesByTaskId(taskId);
     }
@@ -46,7 +47,6 @@ public class SourceController {
     @Operation(description = "Task endpoint to get source by id", summary = "This is a summary for account post endpoint")
     @ApiResponse(description = "Success", responseCode = "200",
             content = { @Content(mediaType = "application/json", schema = @Schema(implementation = SourceDto.class))})
-    @SecurityRequirement(name="keycloak_security_auth") // set up in swaggerconfiguration
     public ResponseEntity<SourceDto> getSource(@RequestParam("id") UUID id) {
         return dataProviderClient.getSource(id);
     }

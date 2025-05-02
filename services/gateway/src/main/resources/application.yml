@@ -3,3 +3,4 @@ spring:
     name: gateway
   config:
     import: optional:configserver:${CONFIGURATION_ENDPOINT_HOST}:${CONFIGURATION_ENDPOINT_PORT}
+

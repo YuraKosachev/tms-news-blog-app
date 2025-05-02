@@ -2,6 +2,7 @@ package com.tms.gateway.controllers;
 
 import com.tms.gateway.core.clients.ArticleClient;
 import com.tms.gateway.core.constants.ApiConstants;
+import com.tms.gateway.core.constants.SecurityConstants;
 import com.tms.gateway.core.models.articles.PortalCreateDto;
 import com.tms.gateway.core.models.articles.PortalDto;
 import com.tms.gateway.core.models.articles.PortalUpdateDto;
@@ -9,7 +10,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +54,7 @@ public class PortalController {
     @Operation(description = "Portal endpoint to get all",
             summary = "This is a summary for portal get all endpoint")
     @ApiResponse(description = "Success", responseCode = "200")
+    @SecurityRequirement(name= SecurityConstants.OAUTH2_NAME)
     public ResponseEntity<?> deleteById(@PathVariable("id") UUID id) {
         articleClient.deletePortalById(id);
         return ResponseEntity.ok().build();
@@ -64,6 +68,7 @@ public class PortalController {
             content = {@Content(mediaType = "application/json",
                     schema = @Schema(implementation = PortalDto.class))})
     @ResponseBody
+    @SecurityRequirement(name= SecurityConstants.OAUTH2_NAME)
     public ResponseEntity<PortalDto> create(@RequestBody PortalCreateDto portalDto) {
         return articleClient.createPortal(portalDto);
     }
@@ -75,6 +80,7 @@ public class PortalController {
             content = {@Content(mediaType = "application/json",
                     schema = @Schema(implementation = PortalDto.class))})
     @ResponseBody
+    @SecurityRequirement(name= SecurityConstants.OAUTH2_NAME)
     public ResponseEntity<PortalDto> update(@RequestBody PortalUpdateDto portalDto) {
         return articleClient.updatePortal(portalDto);
     }
