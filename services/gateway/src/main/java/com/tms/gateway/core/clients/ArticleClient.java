@@ -52,7 +52,7 @@ public interface ArticleClient {
     ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryUpdateDto dto);
 
     @GetMapping(ApiConstants.API_PREFIX_NEWS_V1 + ApiConstants.Comment.API_COMMENT_GET_DELETE)
-    public ResponseEntity<CommentDto> getCommentById(@PathVariable("id") UUID id);
+    ResponseEntity<CommentDto> getCommentById(@PathVariable("id") UUID id);
 
     @GetMapping(ApiConstants.API_PREFIX_NEWS_V1 +ApiConstants.Comment.API_ARTICLE_COMMET_LIST)
     ResponseEntity<List<CommentDto>> getByArticleId(@PathVariable("id") UUID id);

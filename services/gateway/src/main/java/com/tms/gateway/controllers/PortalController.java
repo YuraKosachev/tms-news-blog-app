@@ -35,6 +35,7 @@ public class PortalController {
             content = {@Content(mediaType = "application/json",
                     schema = @Schema(implementation = PortalDto[].class))})
     @ResponseBody
+    @SecurityRequirement(name= SecurityConstants.OAUTH2_NAME)
     public ResponseEntity<List<PortalDto>> getAll() {
         return articleClient.getAll();
     }
@@ -46,6 +47,7 @@ public class PortalController {
             content = {@Content(mediaType = "application/json",
                     schema = @Schema(implementation = PortalDto.class))})
     @ResponseBody
+    @SecurityRequirement(name= SecurityConstants.OAUTH2_NAME)
     public ResponseEntity<PortalDto> getById(@PathVariable("id") UUID id) {
         return articleClient.getPortalById(id);
     }

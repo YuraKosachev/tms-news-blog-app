@@ -43,7 +43,7 @@ public final class ApiConstants {
         public static final String PREFIX = "/tasks";
         public static final String API_LIST_TASK_BY_DATE = PREFIX + "/date/{date}";
         public static final String API_LIST_TASK_BY_STATUS = PREFIX + "/status/{status}";
-        public static final String API_LIST_TASK = PREFIX + "/tasks";
+        public static final String API_LIST_TASK = "/tasks";
     }
 
     public static class Source {
@@ -74,6 +74,7 @@ public final class ApiConstants {
 
     public static String[] freeUrls = {
             API_PREFIX_NEWS_GATEWAY + Category.API_CATEGORY_LIST,
+            API_PREFIX_NEWS_GATEWAY + Category.API_CATEGORY_DETAIL_DELETE.replace("{id}","**"),
             API_PREFIX_NEWS_GATEWAY + Article.API_ARTICLE_DETAIL_DELETE.replace("{id}","**"),
             API_PREFIX_NEWS_GATEWAY + Article.API_SHORT_ARTICLE_LIST_PAGE,
             API_PREFIX_NEWS_GATEWAY + "**/comments",
